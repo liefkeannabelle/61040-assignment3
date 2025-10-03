@@ -8,9 +8,9 @@
     "start": "npm run build && node dist/taskbank-tests.js",
     "dev": "ts-node --transpile-only taskbank-tests.ts",
     "test": "npm run build && node dist/taskbank-tests.js",
-    "manual": "npm run build && node -e \"require('./dist/taskbank-tests.js').testManualScheduling()\"",
-    "llm": "npm run build && node -e \"require('./dist/taskbank-tests.js').testLLMScheduling()\"",
-    "mixed": "npm run build && node -e \"require('./dist/taskbank-tests.js').testMixedScheduling()\""
+    "test1": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsFewTasks()\"",
+    "test2": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsSomeTasks()\"",
+    "test3": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsManyTasks()\""
   },
   "keywords": ["gemini", "ai", "schedule", "student", "demo", "typescript"],
   "author": "Student Demo",

@@ -116,8 +116,8 @@ export class TaskBank {
         const existingTasksSection = `\nTASK BANK:\n${this.tasksToString(existingTasks)}\n`;
 
         const criticalRequirements = [
-            "1. Do not recommend any 'immediately before' dependencies for tasks that already have one",
-            "2. Do not recommend any 'immediately after' dependencies for tasks that already have one",
+            "1. Do not recommend any 'must happen immediately before' dependencies for tasks that already have one",
+            "2. Do not recommend any 'must happen immediately after' dependencies for tasks that already have one",
             "3. Do not list two relations for the same pair of tasks."
         ];
 
@@ -130,10 +130,11 @@ You are a helpful AI assistant that tries to identify potential dependencies bet
 
 YOUR CONSIDERATIONS:
 - You will be recommending relationships between tasks from the task bank.
-- The possible relationships are: ${Relation}.
-- A task cannot have multiple tasks immediately before or immediately after itself.
-- Relationships are bidirectional: if task A must come before task B, task B must come after task A. Only include ONE of these relations in the suggestions.
+- The possible relationships are: ${Relation} EXCEPT 'Void'. Do not enter a relationship as Void. 
 - You should base your suggestions on the name and description of each task as well as the existing relationships between tasks.
+- For each relationship, use the exact phrase written above.
+- A task cannot have multiple tasks with relationships "must happen immediately before" or "must happen immediately after".
+- Relationships are bidirectional: if task A must come before task B, task B must come after task A. Only include ONE of these relations in the suggestions.
 - Prioritize suggestions for tasks with 0 or 1 existing dependencies.
 - Your suggestions must NOT include any existing dependencies or conflict with existing dependencies.
 
@@ -157,21 +158,12 @@ Return your response as a JSON object with this exact structure:
 
 Return ONLY the JSON object, no additional text.`
 
-// Return your suggestions in the following format:
-// "Suggested Dependencies:
-// 'Task 1 Name':
-// - 'relation' 'Task 2 Name'
-// - 'relation' 'Task 3 Name'
-// ...
-// "
-// Do not return anything except these suggestions.
-// `;
     }
 
         private parseAndAddTasks(responseText: string, curTasks: Task[], curDeps: Dependency[]): TaskBank {
             let suggestedTaskBank = new TaskBank;
             suggestedTaskBank.tasks = structuredClone(curTasks);
-            suggestedTaskBank.dependencies = structuredClone(curDeps);
+            //suggestedTaskBank.dependencies = structuredClone(curDeps);
 
             try {
                 // Extract JSON from response (in case there's extra text)
@@ -188,22 +180,8 @@ Return ONLY the JSON object, no additional text.`
     
                 console.log('📝 Processing LLM suggestions...');
     
-                // const activitiesByTitle = new Map<string, Activity[]>();
-                // for (const activity of unassignedActivities) {
-                //     const list = activitiesByTitle.get(activity.title) ?? [];
-                //     list.push(activity);
-                //     activitiesByTitle.set(activity.title, list);
-                // }
-    
                 const issues: string[] = [];
-                // const validatedAssignments: { activity: Activity; startTime: number }[] = [];
-                // const occupiedSlots = new Map<number, Activity>();
-    
-                // for (const existingAssignment of this.assignments) {
-                //     for (let offset = 0; offset < existingAssignment.activity.duration; offset++) {
-                //         occupiedSlots.set(existingAssignment.startTime + offset, existingAssignment.activity);
-                //     }
-                // }
+
                 for (const rawSuggestion of response.suggestions) {
                     if (typeof rawSuggestion !== 'object' || rawSuggestion === null) {
                         issues.push('Encountered a suggestion entry that is not an object.');

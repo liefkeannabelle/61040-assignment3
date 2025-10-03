@@ -72,7 +72,16 @@ actions
 With this augmentation in mind, this is my thought as to how it would manifest on the Task Tackler application itself. Alongside the "add dependencies" button when creating a new task, it would provide suggested dependencies. The user could then easily click these recommendations and add the relation. 
 ![user_interactions](/user_interaction.jpg)
 
+### Exploring Test Cases
+I started with a few basic test cases (1-3) to ensure that my approach worked when the suggested relationships were very easy. I then wanted to consider a few more unique test cases that may cause the LLM to struggle.
 
+To test a few of these edge cases, I implemented the following test cases:
+
+4. No relationship between tasks.
+
+5. Unclear relationship between tasks.
+
+6. Many relationships with the same task.
 
 
 ## Resources
