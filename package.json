@@ -10,7 +10,11 @@
     "test": "npm run build && node dist/taskbank-tests.js",
     "test1": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsFewTasks()\"",
     "test2": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsSomeTasks()\"",
-    "test3": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsManyTasks()\""
+    "test3": "npm run build && node -e \"require('./dist/taskbank-tests.js').testObviousSuggestionsManyTasks()\"",
+    "test4": "npm run build && node -e \"require('./dist/taskbank-tests.js').testUnrelatedTasks()\"",
+    "test5": "npm run build && node -e \"require('./dist/taskbank-tests.js').testTasksWithManyDependencies()\"",
+    "test6": "npm run build && node -e \"require('./dist/taskbank-tests.js').testNoDescriptions()\""
+
   },
   "keywords": ["gemini", "ai", "schedule", "student", "demo", "typescript"],
   "author": "Student Demo",

@@ -108,6 +108,95 @@ export async function testObviousSuggestionsManyTasks(): Promise<void> {
     // Get suggestions and display them
     taskBank.suggestDependencies(llm);
 }
+
+export async function testUnrelatedTasks(): Promise<void> {
+    console.log('\n🧪 TEST CASE 4: Unrelated Tasks');
+    console.log('==================================');
+    
+    // Initialize task bank, configuration, and LLM
+    const taskBank = new TaskBank();
+    const config = loadConfig();
+    const llm = new GeminiLLM(config);
+    
+    // Add tasks to task bank
+    console.log('📝 Adding tasks...');
+    const doReading = taskBank.addTask("Do reading", "Read assigned chapter for political science class.");
+    const doMathPset = taskBank.addTask("Do math pset", "Do math problem set based on recent math material.");
+    const respondEmails = taskBank.addTask("Respond to emails", "Go through inbox and respond to all recent emails.");
+    const cleanRoom = taskBank.addTask("Clean room", "Pick up dirty laundry, trash, and dirty dishes from around my bedroom.");
+
+
+    // Add dependencies - none for this test case
+    console.log('⏰ Adding dependencies...');
+    
+    // Get suggestions and display them
+    taskBank.suggestDependencies(llm);
+}
+
+export async function testTasksWithManyDependencies(): Promise<void> {
+    console.log('\n🧪 TEST CASE 5: Tasks with Many Dependencies');
+    console.log('==================================');
+    
+    // Initialize task bank, configuration, and LLM
+    const taskBank = new TaskBank();
+    const config = loadConfig();
+    const llm = new GeminiLLM(config);
+    
+    // Add tasks to task bank
+    console.log('📝 Adding tasks...');
+    const pickUpRoom = taskBank.addTask("Pick up room", "Pick up dirty laundry, trash, and dirty dishes from around my bedroom.");
+    const startLaundry = taskBank.addTask("Start laundry", "Start washing dirty clothes.");
+    const doDishes = taskBank.addTask("Do dishes", "Wash all dirty dishes.");
+    const vacuumRoom = taskBank.addTask("Vacuum room", "Vacuum room to pick up dust and debris from floor.");
+    const decorateRoom = taskBank.addTask("Decorate room", "Hang up posters to make room cute.");
+
+    const doReading = taskBank.addTask("Do reading", "Read math textbook chapters.");
+    const watchLectureVideos = taskBank.addTask("Watch lecture videos", "Watch recent math lecture videos.");
+    const doPracticeProblems = taskBank.addTask("Do practice problems", "Complete math practice problems on recent material.");
+    const watchReviewVideo = taskBank.addTask("Watch review video", "Watch review video for upcoming math exam.");
+    const makeCheatSheet = taskBank.addTask("Make cheat sheet", "Make cheat sheet for upcoming math exam.");
+    const takeAtHomeExam = taskBank.addTask("Take at home exam", "Take at home math exam on recent material.");
+
+
+    // Add dependencies - none for this test case
+    console.log('⏰ Adding dependencies...');
+    
+    // Get suggestions and display them
+    taskBank.suggestDependencies(llm);
+}
+
+export async function testNoDescriptions(): Promise<void> {
+    console.log('\n🧪 TEST CASE 6: Tasks with No Descriptions');
+    console.log('==================================');
+    
+    // Initialize task bank, configuration, and LLM
+    const taskBank = new TaskBank();
+    const config = loadConfig();
+    const llm = new GeminiLLM(config);
+    
+    // Add tasks to task bank
+    console.log('📝 Adding tasks...');
+    //basic
+    const shower = taskBank.addTask("Shower", "");
+    const getDressed = taskBank.addTask("Get dressed", "");
+    const doMakeup = taskBank.addTask("Do makeup", "");
+    const doReading = taskBank.addTask("Do reading", "");
+    const writeDiscussionPost = taskBank.addTask("Write discussion post", "");
+
+    //more difficult
+    const pickUpRoom = taskBank.addTask("Pick up room", "");
+    const startLaundry = taskBank.addTask("Start laundry", "");
+    const doDishes = taskBank.addTask("Do dishes", "");
+    const vacuumRoom = taskBank.addTask("Vacuum room", "");
+    const decorateRoom = taskBank.addTask("Decorate room", "");
+
+    // Add dependencies - none for this test case
+    console.log('⏰ Adding dependencies...');
+    
+    // Get suggestions and display them
+    taskBank.suggestDependencies(llm);
+}
+
 /**
  * Main function to run all test cases
  */
@@ -120,6 +209,9 @@ async function main(): Promise<void> {
         await testObviousSuggestionsFewTasks();
         await testObviousSuggestionsSomeTasks();
         await testObviousSuggestionsManyTasks();
+        await testUnrelatedTasks();
+        await testTasksWithManyDependencies();
+        await testNoDescriptions();
 
         console.log('\n🎉 All test cases completed successfully!');
         

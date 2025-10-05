@@ -133,10 +133,11 @@ YOUR CONSIDERATIONS:
 - The possible relationships are: ${Relation} EXCEPT 'Void'. Do not enter a relationship as Void. 
 - For each relationship, use the exact phrase written above.
 - Do not list a relationship as "must happen immediately before" or "must happen immediately after" unless the need for immediacy is clear.
-- You should base your suggestions on the name and description of each task as well as the existing relationships between tasks.
+- You should base your suggestions on the name and description of each task as well as the existing relationships between tasks. 
+- Do not suggest relationships between tasks that are clearly unrelated. It is okay to produce no suggestions for a task if no other tasks are related to it.
+- It is okay to produce multiple suggestions with the same task if many other tasks depend on it. You don't need to be 100% sure that they are related, but should be able to justify your suggestion if asked.
 - A task cannot have multiple tasks with relationships "must happen immediately before" or "must happen immediately after".
 - Relationships are bidirectional: if task A must come before task B, task B must come after task A. Only include ONE of these relations in the suggestions.
-- Prioritize suggestions for tasks with 0 or 1 existing dependencies.
 - Your suggestions must NOT include any existing dependencies or conflict with existing dependencies.
 
 ${existingTasksSection}
@@ -214,7 +215,7 @@ Return ONLY the JSON object, no additional text.`
                             }
                         }
                     }
-                    // TODO: want to compare task1 and task2 to make sure they are not the same and make relation matched
+
                     let canAdd = true;
                     for(const cur of curDeps){
                         if(task1 == cur.task1.name && task2 == cur.task2.name){
