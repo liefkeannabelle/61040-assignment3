@@ -73,7 +73,55 @@ With this augmentation in mind, this is my thought as to how it would manifest o
 ![user_interactions](/user_interaction.jpg)
 
 ### Exploring Test Cases
-I started with a few basic test cases (1-3) to ensure that my approach worked when the suggested relationships were very easy. I then wanted to consider a few more unique test cases that may cause the LLM to struggle.
+I started with a few basic test cases (1-3) to ensure that my approach worked when the suggested relationships were very easy. Throughout this process, I iteratively modifed the prompt until the results felt consisently satisfactory. At this point, the prompt was:
+```
+const criticalRequirements = [
+    "1. Do not recommend any 'must happen immediately before' dependencies for tasks that already have one",
+    "2. Do not recommend any 'must happen immediately after' dependencies for tasks that already have one",
+    "3. Do not list two relations for the same pair of tasks."
+];
+
+if (existingDependencies.length > 0) {
+    criticalRequirements.push(`${criticalRequirements.length + 1}. Do not recommend any relations that conflict with or reiterate the existing dependencies.`);
+}
+
+return `
+"You are a helpful AI assistant that tries to identify potential dependencies between tasks according to their name and description.
+
+YOUR CONSIDERATIONS:
+- You will be recommending relationships between tasks from the task bank.
+- The possible relationships are: ${Relation} EXCEPT 'Void'. Do not enter a relationship as Void. 
+- For each relationship, use the exact phrase written above.
+- Do not list a relationship as "must happen immediately before" or "must happen immediately after" unless the need for immediacy is clear.
+- You should base your suggestions on the name and description of each task as well as the existing relationships between tasks.
+- A task cannot have multiple tasks with relationships "must happen immediately before" or "must happen immediately after".
+- Relationships are bidirectional: if task A must come before task B, task B must come after task A. Only include ONE of these relations in the suggestions.
+- Prioritize suggestions for tasks with 0 or 1 existing dependencies.
+- Your suggestions must NOT include any existing dependencies or conflict with existing dependencies.
+
+${existingTasksSection}
+${this.dependenciesToString(this.dependencies)}
+
+CRITICAL REQUIREMENTS:
+${criticalRequirements.join('\n')}
+
+
+Return your response as a JSON object with this exact structure:
+{
+  "suggestions": [
+    {
+      "task1": "exact task name from task bank",
+      "task2": "exact task name from task bank",
+      "relation": "dependency relation from options above"
+    }
+  ]
+}
+
+Return ONLY the JSON object, no additional text."
+
+```
+
+I then wanted to consider a few more unique test cases that may cause the LLM to struggle.
 
 To test a few of these edge cases, I implemented the following test cases:
 

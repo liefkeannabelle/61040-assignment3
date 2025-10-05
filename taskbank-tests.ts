@@ -87,10 +87,10 @@ export async function testObviousSuggestionsManyTasks(): Promise<void> {
     
     // Add tasks to task bank
     console.log('📝 Adding tasks...');
-    const cleanRoom = taskBank.addTask("Clean room", "Pick up clothes, trash, and dishes from around my bedroom.");
+    const cleanRoom = taskBank.addTask("Clean room", "Pick up dirty laundry, trash, and dirty dishes from around my bedroom.");
     const startLaundry = taskBank.addTask("Start laundry", "Start washing dirty clothes.");
     const putAwayLaundry = taskBank.addTask("Put away laundry", "Put away clean clothes.");
-    const doDishes = taskBank.addTask("Do dishes", "Wash all the dirty dishes.");
+    const doDishes = taskBank.addTask("Do dishes", "Wash all dirty dishes.");
     const takeOutTrash = taskBank.addTask("Take out trash", "Bring trash to the dumpster.");
     const doReading = taskBank.addTask("Do reading", "Read assigned chapter for political science class.");
     const takeReadingQuiz = taskBank.addTask("Take reading quiz", "Complete questions related to assigned chapter.");

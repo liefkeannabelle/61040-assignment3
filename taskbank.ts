@@ -131,8 +131,9 @@ You are a helpful AI assistant that tries to identify potential dependencies bet
 YOUR CONSIDERATIONS:
 - You will be recommending relationships between tasks from the task bank.
 - The possible relationships are: ${Relation} EXCEPT 'Void'. Do not enter a relationship as Void. 
-- You should base your suggestions on the name and description of each task as well as the existing relationships between tasks.
 - For each relationship, use the exact phrase written above.
+- Do not list a relationship as "must happen immediately before" or "must happen immediately after" unless the need for immediacy is clear.
+- You should base your suggestions on the name and description of each task as well as the existing relationships between tasks.
 - A task cannot have multiple tasks with relationships "must happen immediately before" or "must happen immediately after".
 - Relationships are bidirectional: if task A must come before task B, task B must come after task A. Only include ONE of these relations in the suggestions.
 - Prioritize suggestions for tasks with 0 or 1 existing dependencies.
